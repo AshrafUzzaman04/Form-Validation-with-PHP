@@ -1,3 +1,6 @@
+<?php
+ $connet=  mysqli_connect("localhost","root","","data_base");
+?>
 <!doctype html>
 <html lang="en">
 <head>

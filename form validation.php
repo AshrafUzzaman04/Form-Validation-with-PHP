@@ -58,14 +58,13 @@ include_once("./header.php");
         $insert_query = "INSERT INTO `user_data`( `name`, `email`, `password`, `gender`,  `city`,`date_of_birth`) VALUES ('$name','$email','$password' ,'$gender','$city','$date_of_birth')";
         $insert = $connet->query($insert_query);
 
-        if(!$insert){
-            echo "<script>alert('Fill the gap form')</script>";
-        }else{
-            echo "<script>alert('Register Succsessully.');location.href='./hellow.php'</script>";
-        }
+        if($insert){
+            echo "<script>alert('Register Succsessully.');location.href='./read.php?'</script>
+";
+}
 
 
-    }
+}
 
 
 }
@@ -87,19 +86,19 @@ include_once("./header.php");
                     <?= $errorName ?? null ?>
                 </div>
                 <div class="mb-3">
-                    <input type="text" name="email" placeholder="Email"
+                    <input type="text" name="email" placeholder="Email*"
                         class="form-control <?= isset($errorEmail) ? "is-invalid" : null ?> <?= isset($correctEmail) ? "is-valid" : null ?>"
                         value="<?= $correctEmail ?? null ?>">
                     <?= $errorEmail ?? null ?>
                 </div>
                 <div class="mb-3">
-                    <input type="password" name="password" placeholder="Password"
+                    <input type="password" name="password" placeholder="Password*"
                         class="form-control <?= isset($errorPassword) ? "is-invalid" : null ?> <?= isset($correctPassword) ? "is-valid" : null ?>"
                         value="<?= $correctPassword ?? null ?>">
                     <?= $errorPassword ?? null ?>
                 </div>
                 <div class="mb-3">
-                    Gender:
+                    Gender :
                     <input type="radio" name="gender" id="male" value="Male" checked>
                     <label for="male">Male</label>
                     <input type="radio" name="gender" id="female" value="Female">
@@ -107,7 +106,7 @@ include_once("./header.php");
                 </div>
                 <div class="row">
                     <div class="mb-3 col-8 col-md-5">
-                        <span>Your Town:</span>
+                        <span>Your Town :</span>
                         <select name="city" class="form-select <?= isset($errorCity) ? "is-invalid" : null ?>">
                             <option value="">-- Select Area --</option>
                             <option value="Dhaka">Dhaka
@@ -127,7 +126,7 @@ include_once("./header.php");
                         <?= $errorCity ?? null ?>
                     </div>
                     <div class="mb-3 col-8 col-md-5">
-                        <label for="birthday">Birthday:</label>
+                        <label for="birthday">Birthday :</label>
                         <input type="date" id="birthday" name="date_of_birth"
                             class="form-control <?= isset($errorName) ? "is-invalid" : null ?> <?= isset($correctName) ? "is-valid" : null ?>"
                             value="<?= $correctdate_of_birth ?? null ?>">
@@ -135,7 +134,7 @@ include_once("./header.php");
                     </div>
                 </div>
 
-                <div class="mb-3 ">
+                <div class="mb-4 mt-2 shadow-sm">
                     <input type="submit" name="sub123" class="btn btn-primary col-12" value="Register">
                 </div>
 
