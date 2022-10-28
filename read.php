@@ -3,10 +3,10 @@ include_once("./header.php");
 $read_query = "SELECT * FROM `user_data`";
 $read = $connet->query($read_query);
 
-if ($read->num_rows >= 0) {
+if ($read->num_rows >= 0 || $read) {
 ?>
-<div class="container">
-    <div class="row">
+<div class="container-xl">
+    <div class="row mx-3 mx-md-0">
         <div class="text-center text-primary my-2">
             <h2>Registered account</h2>
         </div>
@@ -36,12 +36,21 @@ while ($data = $read->fetch_assoc()) {
                     <td class="align-middle"><?= $data['city'] ?></td>
                     <td class="align-middle"><?= $data['date_of_birth'] ?></td>
                     <td class="align-middle">
-                        <a href="./edit.php?id=<?= $data['id'] ?>" style="text-decoration: none;">
-                            <button class="btn btn-dark">Edit</button>
-                        </a>
-                        <a href="./delete.php?id=<?= $data['id'] ?>" style="text-decoration: none;">
-                            <button class="btn btn-danger">Delete</button>
-                        </a>
+
+                        <div class=" d-inline ">
+                            <a href="./edit.php?id=<?= $data['id'] ?>" style="text-decoration: none;">
+                                <button class="btn btn-warning">Edit</button>
+                            </a>
+                        </div>
+                        <div class="d-inline ">
+                            <a href="./dlt.php?id=<?= $data['id'] ?>" style="text-decoration: none;">
+                                <button class="btn btn-danger">Delete</button>
+                            </a>
+                        </div>
+
+
+
+
                     </td>
                 </tr>
             </tbody>
@@ -50,9 +59,11 @@ while ($data = $read->fetch_assoc()) {
 }
 ?>
         </table>
-        <?php 
-    include_once("./button.php");
-        ?>
+        <div class="row p-0 m-0">
+            <button class="btn btn-success me-auto col-2 m-0" onclick="location.href='./form validation.php'">Added new
+                account
+            </button>
+        </div>
     </div>
 
 </div>

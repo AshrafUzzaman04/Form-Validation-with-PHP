@@ -20,11 +20,12 @@ if(!isset($_GET['id'])){
     <div class="row min-vh-100">
         <div class="m-auto text-center">
             <div class="h3">
-                Do you realy want to delete this data?
+                Do you really want to delete the data of Register ID No. <span
+                    class="text-danger underline"><?= $id ?? null ?></span>?
             </div>
-            <div>
+            <div class="mt-4">
                 <a href="./read.php"><button class="btn btn-dark">No</button></a>
-                <form action="" method="POST" class="d-inline">
+                <form action="" method="POST" class="d-inline ms-2">
                     <input type="hidden" value="<?= $id ?? null ?>" name="id">
                     <input type="submit" name="dlt123" value="Yes" class="btn btn-danger">
                 </form>

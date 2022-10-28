@@ -8,7 +8,7 @@ include_once("./header.php");
     $name = $_POST['name'];
     $email = $_POST['email'];
     $password = $_POST['password'];
-    $gender = $_POST['gender'];
+    //  $gender = $_POST['gender'];
     $city = $_POST['city'];
     $date_of_birth = $_POST['date_of_birth'];
     
@@ -24,7 +24,7 @@ include_once("./header.php");
     // email
     if(empty($email)){
         $errorEmail = "<span class='text-danger'>Enter your email address.</span>";   
-    }elseif(!filter_var(FILTER_VALIDATE_EMAIL)){
+    }elseif(!filter_var($email,FILTER_VALIDATE_EMAIL)){
         $errorEmail = "<span class='text-danger'>Invalid email address.</span>";
     }else{
         $correctEmail = $email;
@@ -45,6 +45,13 @@ include_once("./header.php");
     }else{
         $correctCity = $city;
     }
+
+    // gender 
+    if(empty($_POST['gender'])){
+        $errorGender = "<span class='text-danger'>Checked your gender please.</span>";
+    }else {
+        $correctGender = $_POST['gender'];
+    }
     
     // date_of_birth
     if(empty($date_of_birth)){
@@ -54,19 +61,14 @@ include_once("./header.php");
     }
     
 
-    if(!empty($correctName) && !empty($correctEmail)  && !empty($correctPassword) && !empty($gender) && !empty($correctCity) && !empty($correctdate_of_birth)){
-        $insert_query = "INSERT INTO `user_data`( `name`, `email`, `password`, `gender`,  `city`,`date_of_birth`) VALUES ('$name','$email','$password' ,'$gender','$city','$date_of_birth')";
+    if(!empty($correctName) && !empty($correctEmail)  && !empty($correctPassword) && !empty($correctGender) && !empty($correctCity) && !empty($correctdate_of_birth)){
+        $insert_query = "INSERT INTO `user_data`( `name`, `email`, `password`, `gender`,`city`,`date_of_birth`) VALUES ('$name','$email','$password' ,'$_POST[gender]','$city','$date_of_birth')";
         $insert = $connet->query($insert_query);
 
         if($insert){
-            echo "<script>alert('Register Succsessully.');location.href='./read.php?'</script>
-";
+            echo "<script>alert('Register Succsessully.');location.href='./read.php?'</script>";
 }
-
-
 }
-
-
 }
 
 ?>
@@ -79,36 +81,65 @@ include_once("./header.php");
             </div>
 
             <form method="POST">
+
+                <!-- name -->
                 <div class="mb-3">
                     <input type="text" name="name" placeholder="User Name"
                         class="form-control <?= isset($errorName) ? "is-invalid" : null ?> <?= isset($correctName) ? "is-valid" : null ?>"
                         value="<?= $correctName ?? null ?>">
                     <?= $errorName ?? null ?>
                 </div>
+
+
+                <!-- email -->
                 <div class="mb-3">
                     <input type="text" name="email" placeholder="Email*"
                         class="form-control <?= isset($errorEmail) ? "is-invalid" : null ?> <?= isset($correctEmail) ? "is-valid" : null ?>"
                         value="<?= $correctEmail ?? null ?>">
                     <?= $errorEmail ?? null ?>
                 </div>
+
+                <!-- password -->
                 <div class="mb-3">
                     <input type="password" name="password" placeholder="Password*"
                         class="form-control <?= isset($errorPassword) ? "is-invalid" : null ?> <?= isset($correctPassword) ? "is-valid" : null ?>"
                         value="<?= $correctPassword ?? null ?>">
                     <?= $errorPassword ?? null ?>
                 </div>
+
+                <!-- gender -->
                 <div class="mb-3">
-                    Gender :
-                    <input type="radio" name="gender" id="male" value="Male" checked>
-                    <label for="male">Male</label>
-                    <input type="radio" name="gender" id="female" value="Female">
-                    <label for="female">Female</label>
+                    <table>
+                        <tr>
+                            <td><span>Gender : </span></td>
+                            <td><input type="radio" name="gender" id="male" value="Male"
+                                    <?= (isset($correctGender) && $_POST['gender'] == "Male") ? "checked": null ?>>
+                                <label for="male">Male</label>
+                                <input type="radio" name="gender" id="female" value="Female"
+                                    <?= (isset($correctGender) && $_POST['gender'] == "Female") ? "checked": null ?>>
+                                <label for="female">Female</label>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td></td>
+                            <td>
+                                <input type="radio" name="gender" id="Others" value="Others"
+                                    <?= (isset($correctGender) && $_POST['gender'] == "Others") ? "checked": null ?>>
+                                <label for="Others">Others</label>
+                            </td>
+                        </tr>
+                    </table>
+                    <?= $errorGender ?? null ?>
                 </div>
+
+                <!-- city -->
                 <div class="row">
-                    <div class="mb-3 col-8 col-md-5">
+                    <div class="mb-3 col-8 col-xl-5">
                         <span>Your Town :</span>
-                        <select name="city" class="form-select <?= isset($errorCity) ? "is-invalid" : null ?>">
-                            <option value="">-- Select Area --</option>
+                        <select name="city" class="form-select <?= (isset($errorCity)) ? "is-invalid" : null ?>
+                        <?= (isset($correctCity)) ? "is-valid" : null ?>">
+                            <option value="<?= $correctCity ?? null ?>"><?= $correctCity ??"-- Select Area --" ?>
+                            </option>
                             <option value="Dhaka">Dhaka
                             </option>
                             <option value="Rajsahi">Rajsahi</option>
@@ -125,15 +156,18 @@ include_once("./header.php");
                         </select>
                         <?= $errorCity ?? null ?>
                     </div>
-                    <div class="mb-3 col-8 col-md-5">
+
+                    <!-- birthday -->
+                    <div class="mb-3 col-8 col-xl-6">
                         <label for="birthday">Birthday :</label>
                         <input type="date" id="birthday" name="date_of_birth"
-                            class="form-control <?= isset($errorName) ? "is-invalid" : null ?> <?= isset($correctName) ? "is-valid" : null ?>"
+                            class="form-control <?= isset($errordate_of_birth) ? "is-invalid" : null ?><?= isset($correctdate_of_birth) ? "is-valid" : null ?>"
                             value="<?= $correctdate_of_birth ?? null ?>">
                         <?= $errordate_of_birth ?? null ?>
                     </div>
                 </div>
 
+                <!-- button -->
                 <div class="mb-4 mt-2 shadow-sm">
                     <input type="submit" name="sub123" class="btn btn-primary col-12" value="Register">
                 </div>
