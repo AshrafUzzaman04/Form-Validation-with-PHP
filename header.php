@@ -1,5 +1,5 @@
 <?php
- $connet=  mysqli_connect("localhost","root","","data_base");
+ $connet=  mysqli_connect("localhost","root","","data");
 ?>
 <!doctype html>
 <html lang="en">

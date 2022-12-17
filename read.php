@@ -13,6 +13,7 @@ if ($read->num_rows >= 0 || $read) {
         <table class="table table-hover border">
             <thead class="table-primary">
                 <tr>
+                    <th scope="col" class="align-middle">Serial No</th>
                     <th scope="col" class="align-middle">Register ID</th>
                     <th scope="col" class="align-middle">Name</th>
                     <th scope="col" class="align-middle">Email</th>
@@ -24,10 +25,12 @@ if ($read->num_rows >= 0 || $read) {
                 </tr>
             </thead>
             <?php
-while ($data = $read->fetch_assoc()) {
+            $serialNo = 1;
+while ($data = $read->fetch_assoc()) :
     ?>
             <tbody class="">
                 <tr class="">
+                    <td class="align-middle"><?= $serialNo ?></td>
                     <td class="align-middle"><?= $data['id'] ?></td>
                     <td class="align-middle"><?= $data['name'] ?></td>
                     <td class="align-middle"><?= $data['email'] ?></td>
@@ -36,7 +39,6 @@ while ($data = $read->fetch_assoc()) {
                     <td class="align-middle"><?= $data['city'] ?></td>
                     <td class="align-middle"><?= $data['date_of_birth'] ?></td>
                     <td class="align-middle">
-
                         <div class=" d-inline ">
                             <a href="./edit.php?id=<?= $data['id'] ?>" style="text-decoration: none;">
                                 <button class="btn btn-warning">Edit</button>
@@ -47,20 +49,19 @@ while ($data = $read->fetch_assoc()) {
                                 <button class="btn btn-danger">Delete</button>
                             </a>
                         </div>
-
-
-
-
                     </td>
                 </tr>
             </tbody>
 
             <?php
-}
+ ++$serialNo;  
+endwhile
 ?>
         </table>
+
+        <!-- add new account button started here -->
         <div class="row p-0 m-0">
-            <button class="btn btn-success me-auto col-2 m-0" onclick="location.href='./form validation.php'">Added new
+            <button class="btn btn-success me-auto col-2 m-0" onclick="location.href='./'">Added new
                 account
             </button>
         </div>

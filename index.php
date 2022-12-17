@@ -1,7 +1,7 @@
 <?php
 include_once("./header.php");
 
- $connet=  mysqli_connect("localhost","root","","data_base");
+ $connet=  mysqli_connect("localhost","root","","data");
 
 
   if(isset($_POST['sub123'])){
